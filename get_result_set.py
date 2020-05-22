@@ -14,4 +14,5 @@ if __name__ == "__main__":
     result_set = getRemainingSubstrings(sars2, substrings_from_db, int(min_match))
 
     print (result_set)
+    print ("%s matches in db" % db.get_count_of_matches())
     print("end")

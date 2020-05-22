@@ -63,3 +63,7 @@ class SequenceDB (object):
         for row in rows:
             results.append([row[0], row[1]])
         return results
+
+    def get_count_of_matches(self):
+        result = self.cursor.execute('SELECT count(*) FROM match')
+        return result.fetchone()[0]
