@@ -14,13 +14,15 @@ if __name__ == "__main__":
     total_len = 0
     keys = db.fetch_sequence_ids()
     count = 0
-    exit_after = 5000
+    exit_after = 10000
     for key in keys:
         sequence = db.fetch_sequence(key)
         substring_set = allMatchingSubstrings(sars2, sequence, 3)
 
-        for match in substring_set:
-            db.insert_match(key, match[0], match[1])
+        # for match in substring_set:
+        #     db.insert_match(key, match[0], match[1])
+
+        db.insert_matches(key, substring_set)
 
         count += 1
         print("iteration %s complete" % count)

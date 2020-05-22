@@ -23,6 +23,15 @@ class SequenceDB (object):
         self.cursor.execute(query, args)
         self.connection.commit()
 
+    def insert_matches(self, key, matches):
+        args = []
+        for match in matches:
+            args.append((key, match[0], match[1]))
+        # args = (seq_id, start_index, length)
+        query = '''INSERT OR REPLACE INTO match(seq_id, starting_index, length) VALUES (?,?,?)'''
+        self.cursor.executemany(query, args)
+        self.connection.commit()
+
     def fetch_sequences(self):
         rows = self.cursor.execute('SELECT * FROM sequence')
         for row in rows:
