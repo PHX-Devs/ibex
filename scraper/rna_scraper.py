@@ -10,11 +10,11 @@ seleniumLogger.setLevel(logging.WARNING)
 from urllib3.connectionpool import log as urllibLogger
 urllibLogger.setLevel(logging.WARNING)
 
-def getRNASequence(url):
+def getRNASequence(url, base_path):
     unique_id = urlparse(url).path.split('/')[-1]
 
-    if os.path.exists("scraper/sequences/%s" % unique_id):
-        with open("scraper/sequences/%s" % unique_id, 'r') as seq_file:
+    if os.path.exists("%s/%s" % (base_path, unique_id)):
+        with open("%s/%s" % (base_path, unique_id), 'r') as seq_file:
             sequence = seq_file.read()
             return sequence
 
@@ -38,7 +38,7 @@ def getRNASequence(url):
     sequence = "".join(sequence.split())
     print(sequence)
 
-    with open("scraper/sequences/%s" % unique_id, 'x') as seq_file:
+    with open("%s/%s" % (base_path, unique_id), 'x') as seq_file:
         seq_file.write(sequence)
 
     return sequence

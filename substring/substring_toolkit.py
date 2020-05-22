@@ -9,7 +9,6 @@ class Split(Enum):
 def allMatchingSubstrings(target_string, string_to_match, min_length=0):
     matches = []
     length_of_target = len(target_string)
-
     # each iteration of the outer loop is a length 
     # the inner loop below iterates through all substrings of that length
     for length_of_substring in range(min_length, length_of_target):
