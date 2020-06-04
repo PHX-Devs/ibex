@@ -14,17 +14,21 @@ if __name__ == "__main__":
     total_len = 0
     keys = db.fetch_sequence_ids()
     count = 0
+    cursor = 0
     exit_after = 10000
     for key in keys:
+        count += 1
+
+        if (count < cursor):
+            # this is a hack to pick up where we left off
+            # update the cursor if you run this script for "a while" and then want to pick up where you left off
+            continue
+
         sequence = db.fetch_sequence(key)
         substring_set = allMatchingSubstrings(sars2, sequence, 3)
 
-        # for match in substring_set:
-        #     db.insert_match(key, match[0], match[1])
-
         db.insert_matches(key, substring_set)
 
-        count += 1
         print("iteration %s complete" % count)
         if (count >= exit_after):
             break
