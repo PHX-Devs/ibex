@@ -1,9 +1,12 @@
 import sys
+sys.path.append('..')
+from sequence_db.sequence_db import SequenceDB
 
-
-def parse(path):
+def parse(path, db_path):
     count = 0
-    sequences = {}
+    db = SequenceDB(db_path)
+    # sequences = {}
+    temp_seq = ""
     nucleotides = ["T", "A", "G", "C"]
     with open(path, "r") as f:
         lines =  f.readlines()
@@ -11,12 +14,21 @@ def parse(path):
         for line in lines:
             if (line.startswith(">")):
                 current_sequence_key = line.split(" ")[0].split("|")[1]
-                sequences[current_sequence_key] = ""
+                #sequences[current_sequence_key] = ""
+                if current_sequence_key != "":
+                    db.insert_sequence(current_sequence_key, temp_seq)
+                temp_seq = ""
                 count += 1
                 # print("parsing sequence %i: %s" % (count, current_sequence_key))
             if (line[0] in nucleotides):
-                sequences[current_sequence_key] += line.rstrip()
-    return sequences
+                #sequences[current_sequence_key] += line.rstrip()
+                temp_seq += line.rstrip()
+
+        if current_sequence_key != "":
+            db.insert_sequence(current_sequence_key, temp_seq)
+
+    #return sequences
+
 
 def print_debug(sequences):
     print("size: %s" % len(sequences))
@@ -26,9 +38,3 @@ def print_debug(sequences):
         print(seq[0:75])
         print(len(seq))
         print(" ")
-
-if __name__ == "__main__":
-    filename_to_parse = sys.argv[1]
-    print("parsing %s" % filename_to_parse)
-    sequences = parse(filename_to_parse)
-    print_debug(sequences)

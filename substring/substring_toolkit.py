@@ -9,7 +9,6 @@ class Split(Enum):
 def allMatchingSubstrings(target_string, string_to_match, min_length=0):
     matches = []
     length_of_target = len(target_string)
-
     # each iteration of the outer loop is a length 
     # the inner loop below iterates through all substrings of that length
     for length_of_substring in range(min_length, length_of_target):
@@ -39,7 +38,7 @@ def allMatchingSubstrings(target_string, string_to_match, min_length=0):
 
     return matches
 
-def getRemainingSubstrings(target_string, substring_set):
+def getRemainingSubstrings(target_string, substring_set, min_length):
     # given a target string and an array of arrays that list known matches to one or more other strings,
     # generate a list of substrings of the target string that aren't covered by any of the substrings
     # described by the substring set (i.e. the remainder)
@@ -54,7 +53,7 @@ def getRemainingSubstrings(target_string, substring_set):
     # the set of remainder subtrings is the set of substrings in the target string
     # that were in no way covered by any of the matching substrings given by the substring_set
     # i.e. the only substrings that didn't match
-    result_set = buildResultSet(target_string, reference_array)
+    result_set = buildResultSet(target_string, reference_array, min_length)
 
     return result_set
 
@@ -81,7 +80,7 @@ def buildReferenceArray(sequence, substring_set):
 
     return reference_array
 
-def buildResultSet(sequence, reference_array):
+def buildResultSet(sequence, reference_array, min_length):
     # use a dict to control for duplicate substrings, but return an array (see return statement below)
     result_set = {}
     string_being_built = ""
@@ -94,25 +93,25 @@ def buildResultSet(sequence, reference_array):
         # on a Split.SPlIT, we close out the string and start a new string with the next character
         elif (reference_array[i] == Split.SPLIT):
             string_being_built += sequence[i]
-            if (len(string_being_built) > 2):
+            if (len(string_being_built) > min_length):
                 result_set[string_being_built] = '-'
             string_being_built = ""
 
         # on a Split.DUP, it's like SPLIT, but we reuse this character in the next string too (DUPlicating it)
         elif (reference_array[i] == Split.DUP):
             string_being_built += sequence[i]
-            if (len(string_being_built) > 2):
+            if (len(string_being_built) > min_length):
                 result_set[string_being_built] = '-'
             string_being_built = "" + sequence[i]
 
         # on a Split.SKIP, the character won't end up in any string (close out the last string if needed)
         elif (reference_array[i] == Split.SKIP):
-            if (len(string_being_built) > 2):
+            if (len(string_being_built) > min_length):
                 result_set[string_being_built] = '-'
             string_being_built = ""
 
     # there may be one last string lingering in the string_being_build var..
-    if (len(string_being_built) > 2):
+    if (len(string_being_built) > min_length):
         result_set[string_being_built] = '-'
 
     return list(result_set.keys())
