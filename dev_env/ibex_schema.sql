@@ -14,7 +14,7 @@ CREATE TABLE ibex.match (
     length INT,
     PRIMARY KEY (seq_id, starting_index, length)
 );
-GRANT ALL ON TABLE ibex.match TO match;
+GRANT ALL ON TABLE ibex.match TO ibex;
 
 CREATE INDEX seq_length_idx ON ibex.sequence (length);
 CREATE INDEX match_length_idx ON ibex.match (length);
