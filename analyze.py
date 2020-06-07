@@ -1,35 +1,54 @@
-import pprint
+import time
 from scraper.rna_scraper import getRNASequence
 from substring.substring_toolkit import allMatchingSubstrings, getRemainingSubstrings
 from sequence_parser.parser import parse
-from sequence_db.sequence_db import SequenceDB
+# from sequence_db.sequence_db import SequenceDB
+from sequence_db.sequence_db_postgres import SequenceDB
 from paths import db_path, cached_covid_path
+from result_set import get_result_set, get_result_set_size, prune_matches, get_next_result_set
 
 if __name__ == "__main__":
-    pp = pprint.PrettyPrinter(indent=4)
 
     sars2 = getRNASequence("https://www.ncbi.nlm.nih.gov/nuccore/MN988668.1?report=fasta", cached_covid_path)
     db = SequenceDB(db_path)
 
-    total_len = 0
     keys = db.fetch_sequence_ids()
     count = 0
-    cursor = 0
     exit_after = 10000
+
+    candidate_string_size = get_next_result_set()
+    result_set_size = get_result_set_size(candidate_string_size)
+
     for key in keys:
         count += 1
-
-        if (count < cursor):
-            # this is a hack to pick up where we left off
-            # update the cursor if you run this script for "a while" and then want to pick up where you left off
-            continue
+        start = time.time()
 
         sequence = db.fetch_sequence(key)
-        substring_set = allMatchingSubstrings(sars2, sequence, 3)
 
-        db.insert_matches(key, substring_set)
+        substring_set = allMatchingSubstrings(sars2, sequence, candidate_string_size)
+
+        db.insert_matches_optimized(key, substring_set)
+
+        db.set_sequence_analyzed(key)
 
         print("iteration %s complete" % count)
+
+        end = time.time()
+        duration = end - start
+        print("iteration duration: %s" % duration)
+
+        if (count % 100 == 0):
+            print("fetching new result set size.")
+            result_set_size = get_result_set_size(candidate_string_size)
+            if (result_set_size == 0):
+                candidate_string_size = get_next_result_set()
+                prune_matches(candidate_string_size)
+                print("result set incremented to %s" % candidate_string_size)
+
+        print("result set size: %s " % result_set_size)
+        print("candidate string size: %s" % candidate_string_size)
+        print("--------------------------------------")
+
         if (count >= exit_after):
             break
 

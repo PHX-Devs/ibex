@@ -4,7 +4,8 @@ GRANT ALL ON SCHEMA ibex TO ibex;
 CREATE TABLE ibex.sequence (
     id TEXT PRIMARY KEY,
     sequence TEXT,
-    length INT
+    length INT,
+    analyzed BOOLEAN DEFAULT 'f'
 );
 GRANT ALL ON TABLE ibex.sequence TO ibex;
 
