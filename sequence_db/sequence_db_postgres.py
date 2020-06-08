@@ -90,7 +90,7 @@ class SequenceDB (object):
         return keys
 
     def get_count_sequences_processed(self):
-        rows = self.simple_query("SELECT count(*) FROM sequence WHERE analyzed = 't", {})
+        rows = self.simple_query("SELECT count(*) FROM sequence WHERE analyzed = 't'", {})
         count = rows[0]['count']
         return count
 
@@ -116,7 +116,10 @@ class SequenceDB (object):
     def get_min_match_size(self):
         query = "SELECT min(length) FROM ibex.match"
         rows = self.simple_query(query, {})
-        return int(rows[0]['min'])
+        try:
+            return int(rows[0]['min'])
+        except TypeError:
+            return 0
 
     def prune_matches(self, size):
         query = "delete from ibex.match where length < :size"
