@@ -82,6 +82,14 @@ class SequenceDB (object):
             keys.append(row['id'])
         return keys
 
+    def fetch_all_sequence_ids(self):
+        rows = self.simple_query("SELECT id FROM sequence ORDER BY length desc", {})
+        keys = []
+        for row in rows:
+            keys.append(row['id'])
+        return keys
+
+
     def fetch_sequence(self, key):
         query = "SELECT sequence FROM ibex.sequence WHERE id = :id"
         args = {'id': key}

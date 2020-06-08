@@ -13,5 +13,5 @@ if __name__ == "__main__":
     min_match = sys.argv[1]
     result_set = get_result_set(min_match)
     print (result_set)
-    print ("matches in db starting at length=%s" % get_min_match_size())
-    print ("next result set: %s" % get_next_result_set())
+    # print ("matches in db starting at length=%s" % get_min_match_size())
+    # print ("next result set: %s" % get_next_result_set())
