@@ -17,7 +17,10 @@ def is_sequence_viable_option(candidate_substring, sequence_keys):
 
 if __name__ == "__main__":
     min_match = sys.argv[1]
-    result_set = get_result_set(min_match)
+    try:
+        result_set = get_result_set(int(min_match))
+    except:
+        result_set = [sys.argv[1]]
 
     db = SequenceDB(db_path)
     sequence_keys = db.fetch_all_sequence_ids()

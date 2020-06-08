@@ -16,8 +16,13 @@ if __name__ == "__main__":
     count = 0
     exit_after = 10000
 
-    candidate_string_size = get_next_result_set()
-    result_set_size = get_result_set_size(candidate_string_size)
+    count_seq_processed = int(db.get_count_sequences_processed())
+
+    candidate_string_size = 3
+    result_set_size = 999
+    if (count_seq_processed > 0):
+        candidate_string_size = get_next_result_set()
+        result_set_size = get_result_set_size(candidate_string_size)
 
     for key in keys:
         count += 1

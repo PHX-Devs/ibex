@@ -89,6 +89,10 @@ class SequenceDB (object):
             keys.append(row['id'])
         return keys
 
+    def get_count_sequences_processed(self):
+        rows = self.simple_query("SELECT count(*) FROM sequence WHERE analyzed = 't", {})
+        count = rows[0]['count']
+        return count
 
     def fetch_sequence(self, key):
         query = "SELECT sequence FROM ibex.sequence WHERE id = :id"
