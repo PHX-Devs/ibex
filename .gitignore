@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+.vagrant/
+data/db/sequence.db
+all_sequences.txt

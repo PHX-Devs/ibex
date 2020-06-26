@@ -3,16 +3,15 @@ import pprint
 from scraper.rna_scraper import getRNASequence
 from substring.substring_toolkit import allMatchingSubstrings, getRemainingSubstrings
 from sequence_parser.parser import parse
-from sequence_db.sequence_db import SequenceDB
+# from sequence_db.sequence_db import SequenceDB
+from sequence_db.sequence_db_postgres import SequenceDB
 from paths import db_path, cached_covid_path
+
+from result_set import get_result_set, get_result_set_size, get_min_match_size, get_next_result_set
 
 if __name__ == "__main__":
     min_match = sys.argv[1]
-    sars2 = getRNASequence("https://www.ncbi.nlm.nih.gov/nuccore/MN988668.1?report=fasta", cached_covid_path)
-    db = SequenceDB(db_path)
-    substrings_from_db = db.fetch_all_matches(min_match)
-    result_set = getRemainingSubstrings(sars2, substrings_from_db, int(min_match))
-
+    result_set = get_result_set(min_match)
     print (result_set)
-    print ("%s matches in db" % db.get_count_of_matches())
-    print("end")
+    # print ("matches in db starting at length=%s" % get_min_match_size())
+    # print ("next result set: %s" % get_next_result_set())
