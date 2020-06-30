@@ -1,4 +1,6 @@
 # IBEX
+<a href="https://github.com/johnzech/bento-box"><img src="ibex-logo.svg" alt="ibex" width="50%" /></a>
+
 Project Ibex: RNA sequence matching to save the world
 
 ## to get started...
