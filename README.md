@@ -9,9 +9,9 @@ Project Ibex: RNA sequence matching to save the world (we hope)
 
 * [Prerequisites](#prerequisites)
 * [Getting Started](#getting-started)
-* [Install Methods](#intall-methods)
-   * [Installing w/ Vagrant](#installing-w/-vagrant)
-   * [Installing on other vm/hardware](#installing-on-other-vm/hardware)
+* [Install Methods](#install-methods)
+   * [Installing w/ Vagrant](#installing-w-vagrant)
+   * [Installing on other vm/hardware](#installing-on-other-vm-hardware)
 * [Usage](#usage)
    * [Build the sequence db](#build-the-sequence-db)
    * [Analyze Matches](#analyze-matches)
@@ -165,4 +165,4 @@ tree
 
 
 ## License
-[LGPLv2.1](LICENSE) © John Zechlin
+[LGPL-2.1](LICENSE) © John Zechlin
