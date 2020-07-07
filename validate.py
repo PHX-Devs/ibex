@@ -1,6 +1,6 @@
 import sys
 from tqdm import tqdm
-from sequence_db.sequence_db_postgres import SequenceDB
+from sequence_db.sequence_db import SequenceDB
 from paths import db_path
 from result_set import get_result_set
 

@@ -2,8 +2,7 @@ import time
 from scraper.rna_scraper import getRNASequence
 from substring.substring_toolkit import allMatchingSubstrings, getRemainingSubstrings
 from sequence_parser.parser import parse
-# from sequence_db.sequence_db import SequenceDB
-from sequence_db.sequence_db_postgres import SequenceDB
+from sequence_db.sequence_db import SequenceDB
 from paths import db_path, cached_covid_path
 from result_set import get_result_set, get_result_set_size, prune_matches, get_next_result_set
 

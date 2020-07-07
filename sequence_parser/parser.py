@@ -1,7 +1,6 @@
 import sys
 sys.path.append('..')
-#from sequence_db.sequence_db import SequenceDB
-from sequence_db.sequence_db_postgres import SequenceDB
+from sequence_db.sequence_db import SequenceDB
 
 def parse(path, db_path):
     count = 0
