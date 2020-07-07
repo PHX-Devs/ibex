@@ -3,7 +3,7 @@
 
 Project Ibex: RNA sequence matching to save the world (we hope)
 
-<a href="https://www.buymeacoffee.com/humanitydriven"><img src="https://img.shields.io/badge/buymeacoffee- -brightgreen" alt="code-size"/></a><img src="https://img.shields.io/github/languages/code-size/johnzech/ibex" alt="code-size"/><a href="LICENSE"><img src="https://img.shields.io/github/license/johnzech/ibex.svg" alt="license" /></a>
+<a href="https://www.buymeacoffee.com/humanitydriven"><img src="https://img.shields.io/badge/buymeacoffee- -brightgreen" alt="code-size"/></a><img src="https://img.shields.io/github/languages/code-size/johnzech/ibex" alt="code-size"/><a href="LICENSE"><img src="https://img.shields.io/github/license/johnzech/ibex" alt="license" /></a>
 
 ## Table of Contents
 
