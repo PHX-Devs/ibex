@@ -165,4 +165,4 @@ tree
 
 
 ## License
-[MIT](LICENSE) © John Zechlin
+[LGPLv2.1](LICENSE) © John Zechlin
